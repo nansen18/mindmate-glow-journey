@@ -9,6 +9,10 @@ import OnboardingFlow from "./pages/OnboardingFlow";
 import Dashboard from "./pages/Dashboard";
 import MoodTracker from "./pages/MoodTracker";
 import AIBuddyChat from "./pages/AIBuddyChat";
+import ReflectionJournal from "./pages/ReflectionJournal";
+import GratitudeTracker from "./pages/GratitudeTracker";
+import DoodleSpace from "./pages/DoodleSpace";
+import PrivateNotes from "./pages/PrivateNotes";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
