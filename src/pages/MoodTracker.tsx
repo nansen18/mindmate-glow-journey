@@ -76,17 +76,34 @@ const MoodTracker = () => {
               <button
                 key={mood.id}
                 onClick={() => setSelectedMood(mood.id)}
-                className={`mood-ring p-4 rounded-2xl transition-all duration-300 ${
+                className={`relative p-4 rounded-2xl transition-all duration-300 ${
                   selectedMood === mood.id
-                    ? `bg-gradient-to-br ${mood.color} shadow-lg scale-105 active`
+                    ? 'bg-white/70 shadow-lg scale-105 ring-2 ring-white/50'
                     : 'bg-white/50 hover:bg-white/70'
                 }`}
+                style={{
+                  background: selectedMood === mood.id 
+                    ? `linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.7) 100%), linear-gradient(135deg, ${mood.color.includes('from-') ? mood.color.replace('from-', '').replace('to-', ', ') : mood.color})`
+                    : undefined
+                }}
               >
-                <div className="text-3xl mb-2">{mood.emoji}</div>
-                <div className={`text-sm font-medium ${
-                  selectedMood === mood.id ? 'text-white' : 'text-graphite'
-                }`}>
-                  {mood.label}
+                {selectedMood === mood.id && (
+                  <>
+                    {/* Soft glow behind the button */}
+                    <div 
+                      className={`absolute -inset-1 rounded-2xl opacity-30 blur-sm bg-gradient-to-br ${mood.color}`}
+                      style={{ zIndex: -1 }}
+                    />
+                    {/* Subtle sparkle effect */}
+                    <div className="absolute top-1 right-1 w-2 h-2 bg-white/80 rounded-full sparkle" />
+                  </>
+                )}
+                
+                <div className="relative z-10">
+                  <div className="text-3xl mb-2 drop-shadow-sm">{mood.emoji}</div>
+                  <div className="text-sm font-medium text-graphite drop-shadow-sm">
+                    {mood.label}
+                  </div>
                 </div>
               </button>
             ))}
@@ -108,13 +125,24 @@ const MoodTracker = () => {
                 <button
                   key={level}
                   onClick={() => setSelectedIntensity(level)}
-                  className={`flex-1 aspect-square rounded-2xl transition-all duration-300 ${
+                  className={`flex-1 aspect-square rounded-2xl transition-all duration-300 relative ${
                     selectedIntensity === level
-                      ? `bg-gradient-to-br ${selectedMoodData?.color} shadow-lg scale-105 text-white`
-                      : 'bg-white/50 hover:bg-white/70 text-graphite'
+                      ? 'bg-white/70 shadow-lg scale-105 ring-2 ring-white/50'
+                      : 'bg-white/50 hover:bg-white/70'
                   }`}
+                  style={{
+                    background: selectedIntensity === level && selectedMoodData
+                      ? `linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.7) 100%), linear-gradient(135deg, ${selectedMoodData.color.includes('from-') ? selectedMoodData.color.replace('from-', '').replace('to-', ', ') : selectedMoodData.color})`
+                      : undefined
+                  }}
                 >
-                  <div className="text-lg font-bold">{level}</div>
+                  {selectedIntensity === level && selectedMoodData && (
+                    <div 
+                      className={`absolute -inset-1 rounded-2xl opacity-30 blur-sm bg-gradient-to-br ${selectedMoodData.color}`}
+                      style={{ zIndex: -1 }}
+                    />
+                  )}
+                  <div className="relative z-10 text-lg font-bold text-graphite drop-shadow-sm">{level}</div>
                 </button>
               ))}
             </div>
