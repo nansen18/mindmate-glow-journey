@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -159,14 +158,44 @@ const MoodTracker = () => {
         <Card className="card-gradient rounded-3xl mb-6 animate-fade-in">
           <CardContent className="p-8 text-center">
             <div className="mb-4">
-              <h3 className="text-lg font-semibold text-graphite mb-2">Your Mood Ring</h3>
-              <div className={`mood-ring active w-24 h-24 bg-gradient-to-br ${selectedMoodData?.color} rounded-full mx-auto flex items-center justify-center text-4xl shadow-2xl`}>
-                {selectedMoodData?.emoji}
+              <h3 className="text-lg font-semibold text-graphite mb-4">Your Mood Ring</h3>
+              <div className="relative mx-auto w-32 h-32 flex items-center justify-center">
+                {/* Main mood ring with gradient background */}
+                <div 
+                  className={`mood-ring active w-28 h-28 bg-gradient-to-br ${selectedMoodData?.color} rounded-full flex items-center justify-center shadow-2xl relative animate-float`}
+                >
+                  {/* Emoji inside the ring */}
+                  <div className="text-5xl animate-pulse-gentle drop-shadow-lg">
+                    {selectedMoodData?.emoji}
+                  </div>
+                  
+                  {/* Intensity indicator badge */}
+                  <div className="absolute -bottom-1 -right-1 w-8 h-8 bg-white/90 rounded-full flex items-center justify-center shadow-lg ring-2 ring-white/50">
+                    <span className="text-xs font-bold text-graphite">{selectedIntensity}</span>
+                  </div>
+                  
+                  {/* Gentle sparkle effects */}
+                  <div className="absolute top-2 right-4 w-2 h-2 bg-white/80 rounded-full sparkle"></div>
+                  <div className="absolute bottom-4 left-2 w-1.5 h-1.5 bg-white/60 rounded-full sparkle" style={{ animationDelay: '1s' }}></div>
+                </div>
+                
+                {/* Outer glow ring */}
+                <div 
+                  className={`absolute inset-0 w-32 h-32 bg-gradient-to-br ${selectedMoodData?.color} rounded-full opacity-20 blur-md animate-glow`}
+                ></div>
               </div>
             </div>
-            <p className="text-graphite/70">
-              You're feeling <span className="font-semibold">{selectedMoodData?.label}</span> with intensity level <span className="font-semibold">{selectedIntensity}</span>
-            </p>
+            <div className="space-y-2">
+              <p className="text-graphite font-medium text-lg">
+                You're feeling <span className="font-semibold text-bubblegum-pink">{selectedMoodData?.label}</span>
+              </p>
+              <p className="text-graphite/70 text-sm">
+                Intensity Level: <span className="font-semibold">{selectedIntensity}/5</span>
+              </p>
+              <p className="text-graphite/60 text-xs mt-3 italic">
+                "Every feeling matters. You're doing great by checking in with yourself! ✨"
+              </p>
+            </div>
           </CardContent>
         </Card>
       )}
