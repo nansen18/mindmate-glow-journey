@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,7 +62,17 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				// MindMate Custom Colors
+				'electric-mint': '#B9FBC0',
+				'bubblegum-pink': '#FFB3C6',
+				'sky-glow': '#A0C4FF',
+				'sunshine-peach': '#FFD6A5',
+				'lavender-mist': '#CABBE9',
+				'lemon-zest': '#FDFFB6',
+				'cosmic-lilac': '#E0AAFF',
+				'crisp-white': '#FFFFFF',
+				'graphite': '#2E2E2E'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -84,11 +95,60 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'float': {
+					'0%, 100%': {
+						transform: 'translateY(0px)'
+					},
+					'50%': {
+						transform: 'translateY(-10px)'
+					}
+				},
+				'glow': {
+					'0%, 100%': {
+						boxShadow: '0 0 20px rgba(185, 251, 192, 0.3)'
+					},
+					'50%': {
+						boxShadow: '0 0 40px rgba(185, 251, 192, 0.6)'
+					}
+				},
+				'bubble': {
+					'0%': {
+						transform: 'translateY(100vh) scale(0)',
+						opacity: '0'
+					},
+					'10%': {
+						opacity: '1'
+					},
+					'90%': {
+						opacity: '1'
+					},
+					'100%': {
+						transform: 'translateY(-100vh) scale(1)',
+						opacity: '0'
+					}
+				},
+				'pulse-gentle': {
+					'0%, 100%': {
+						opacity: '1'
+					},
+					'50%': {
+						opacity: '0.7'
+					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'float': 'float 3s ease-in-out infinite',
+				'glow': 'glow 2s ease-in-out infinite',
+				'bubble': 'bubble 8s linear infinite',
+				'pulse-gentle': 'pulse-gentle 2s ease-in-out infinite'
+			},
+			backgroundImage: {
+				'gradient-rainbow': 'linear-gradient(135deg, #FFB3C6 0%, #A0C4FF 25%, #B9FBC0 50%, #FFD6A5 75%, #CABBE9 100%)',
+				'gradient-sunrise': 'linear-gradient(135deg, #FFB3C6 0%, #FFD6A5 50%, #FDFFB6 100%)',
+				'gradient-moonlight': 'linear-gradient(135deg, #A0C4FF 0%, #CABBE9 50%, #E0AAFF 100%)'
 			}
 		}
 	},

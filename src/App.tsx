@@ -1,9 +1,14 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
+import SplashScreen from "./pages/SplashScreen";
+import OnboardingFlow from "./pages/OnboardingFlow";
+import Dashboard from "./pages/Dashboard";
+import MoodTracker from "./pages/MoodTracker";
+import AIBuddyChat from "./pages/AIBuddyChat";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -13,10 +18,21 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
+      <div className="floating-bubbles">
+        <div className="bubble"></div>
+        <div className="bubble"></div>
+        <div className="bubble"></div>
+        <div className="bubble"></div>
+        <div className="bubble"></div>
+        <div className="bubble"></div>
+      </div>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="/" element={<SplashScreen />} />
+          <Route path="/onboarding" element={<OnboardingFlow />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/mood-tracker" element={<MoodTracker />} />
+          <Route path="/ai-chat" element={<AIBuddyChat />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
