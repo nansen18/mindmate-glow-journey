@@ -3,10 +3,14 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Heart, MessageCircle, Calendar, Star, User } from "lucide-react";
+import { Heart, MessageCircle, Calendar, Star, User, BookOpen, Palette, Lock, Sparkles } from "lucide-react";
+import MilestoneBadge from "@/components/MilestoneBadge";
 
 const Dashboard = () => {
-  const [userName] = useState("Alex"); // This would come from user data
+  const [userName] = useState("Alex");
+  const [reflectionCount] = useState(5); // This would come from user data
+  const [gratitudeCount] = useState(8);
+  const [moodCount] = useState(12);
   const navigate = useNavigate();
 
   const todayAffirmation = "You are stronger than you think and braver than you feel. Today is a new opportunity to shine! ✨";
@@ -31,10 +35,16 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="min-h-screen p-6 pb-20">
-      {/* Header */}
+    <div className="min-h-screen p-6 pb-20 relative">
+      {/* Breathing background elements */}
+      <div className="fixed inset-0 pointer-events-none">
+        <div className="absolute top-20 right-10 w-24 h-24 bg-gradient-to-br from-electric-mint/20 to-sky-glow/20 rounded-full animate-pulse-gentle"></div>
+        <div className="absolute bottom-40 left-8 w-20 h-20 bg-gradient-to-br from-bubblegum-pink/20 to-sunshine-peach/20 rounded-full animate-pulse-gentle" style={{ animationDelay: '2s' }}></div>
+      </div>
+
+      {/* Header with milestone badges */}
       <div className="flex items-center justify-between mb-8">
-        <div>
+        <div className="flex-1">
           <h1 className="text-2xl font-bold text-graphite mb-1">
             Hey {userName}, let's take care of you today 🌿✨
           </h1>
@@ -45,8 +55,13 @@ const Dashboard = () => {
               day: 'numeric' 
             })}
           </p>
+          <div className="flex gap-2 mt-3 flex-wrap">
+            <MilestoneBadge type="reflection" count={reflectionCount} />
+            <MilestoneBadge type="gratitude" count={gratitudeCount} />
+            <MilestoneBadge type="mood" count={moodCount} />
+          </div>
         </div>
-        <div className="w-12 h-12 bg-gradient-to-br from-bubblegum-pink to-sky-glow rounded-full flex items-center justify-center shadow-lg">
+        <div className="w-12 h-12 bg-gradient-to-br from-bubblegum-pink to-sky-glow rounded-full flex items-center justify-center shadow-lg animate-float">
           <User className="w-6 h-6 text-white" />
         </div>
       </div>
@@ -76,7 +91,7 @@ const Dashboard = () => {
       </Card>
 
       {/* Today's Affirmation */}
-      <Card className="card-gradient rounded-3xl mb-6">
+      <Card className="card-gradient rounded-3xl mb-6 border-2 border-sunshine-peach/30">
         <CardHeader className="pb-4">
           <CardTitle className="text-lg font-semibold text-graphite flex items-center gap-2">
             <Star className="w-5 h-5 text-sunshine-peach" />
@@ -84,7 +99,7 @@ const Dashboard = () => {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-graphite/80 italic leading-relaxed mb-4">
+          <p className="text-graphite/80 italic leading-relaxed mb-4 text-lg">
             "{todayAffirmation}"
           </p>
           <Button variant="ghost" className="text-cosmic-lilac hover:text-cosmic-lilac/80">
@@ -98,7 +113,7 @@ const Dashboard = () => {
         {quickStats.map((stat, index) => (
           <Card key={index} className="card-gradient rounded-2xl">
             <CardContent className="p-4 text-center">
-              <div className={`w-12 h-12 bg-gradient-to-br ${stat.color} rounded-xl flex items-center justify-center mx-auto mb-2 text-lg`}>
+              <div className={`w-12 h-12 bg-gradient-to-br ${stat.color} rounded-xl flex items-center justify-center mx-auto mb-2 text-lg animate-float`} style={{ animationDelay: `${index * 0.5}s` }}>
                 {stat.icon}
               </div>
               <div className="text-sm font-semibold text-graphite">{stat.value}</div>
@@ -108,11 +123,53 @@ const Dashboard = () => {
         ))}
       </div>
 
-      {/* Action Buttons */}
+      {/* New Cozy Features */}
+      <div className="space-y-4 mb-6">
+        <h3 className="text-lg font-semibold text-graphite flex items-center gap-2">
+          <Sparkles className="w-5 h-5 text-cosmic-lilac" />
+          Your Cozy Wellness Space
+        </h3>
+        
+        <div className="grid grid-cols-2 gap-4">
+          <Button 
+            onClick={() => navigate("/reflection-journal")}
+            className="h-20 rounded-2xl bg-gradient-to-br from-lavender-mist to-cosmic-lilac text-white shadow-lg hover:scale-105 transition-all duration-300 flex flex-col items-center justify-center"
+          >
+            <BookOpen className="w-6 h-6 mb-1" />
+            <span className="text-sm">Reflection Journal</span>
+          </Button>
+          
+          <Button 
+            onClick={() => navigate("/gratitude-tracker")}
+            className="h-20 rounded-2xl bg-gradient-to-br from-sunshine-peach to-bubblegum-pink text-white shadow-lg hover:scale-105 transition-all duration-300 flex flex-col items-center justify-center"
+          >
+            <Heart className="w-6 h-6 mb-1" />
+            <span className="text-sm">Gratitude Garden</span>
+          </Button>
+          
+          <Button 
+            onClick={() => navigate("/doodle-space")}
+            className="h-20 rounded-2xl bg-gradient-to-br from-electric-mint to-sky-glow text-white shadow-lg hover:scale-105 transition-all duration-300 flex flex-col items-center justify-center"
+          >
+            <Palette className="w-6 h-6 mb-1" />
+            <span className="text-sm">Mindful Doodles</span>
+          </Button>
+          
+          <Button 
+            onClick={() => navigate("/private-notes")}
+            className="h-20 rounded-2xl bg-gradient-to-br from-cosmic-lilac to-bubblegum-pink text-white shadow-lg hover:scale-105 transition-all duration-300 flex flex-col items-center justify-center"
+          >
+            <Lock className="w-6 h-6 mb-1" />
+            <span className="text-sm">Safe Haven</span>
+          </Button>
+        </div>
+      </div>
+
+      {/* Main Action Buttons */}
       <div className="space-y-4">
         <Button 
           onClick={() => navigate("/ai-chat")}
-          className="btn-primary w-full h-14 text-lg rounded-2xl flex items-center justify-center gap-3"
+          className="btn-primary w-full h-14 text-lg rounded-2xl flex items-center justify-center gap-3 shadow-xl"
         >
           <MessageCircle className="w-6 h-6" />
           Chat with MindMate

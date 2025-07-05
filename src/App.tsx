@@ -33,6 +33,10 @@ const App = () => (
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/mood-tracker" element={<MoodTracker />} />
           <Route path="/ai-chat" element={<AIBuddyChat />} />
+          <Route path="/reflection-journal" element={<ReflectionJournal />} />
+          <Route path="/gratitude-tracker" element={<GratitudeTracker />} />
+          <Route path="/doodle-space" element={<DoodleSpace />} />
+          <Route path="/private-notes" element={<PrivateNotes />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
