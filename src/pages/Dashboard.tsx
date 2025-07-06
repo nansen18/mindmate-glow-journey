@@ -61,9 +61,12 @@ const Dashboard = () => {
             <MilestoneBadge type="mood" count={moodCount} />
           </div>
         </div>
-        <div className="w-12 h-12 bg-gradient-to-br from-bubblegum-pink to-sky-glow rounded-full flex items-center justify-center shadow-lg animate-float">
+        <button 
+          onClick={() => navigate("/profile")}
+          className="w-12 h-12 bg-gradient-to-br from-bubblegum-pink to-sky-glow rounded-full flex items-center justify-center shadow-lg animate-float transition-all duration-300 hover:scale-105 active:scale-95"
+        >
           <User className="w-6 h-6 text-white" />
-        </div>
+        </button>
       </div>
 
       {/* Quick Mood Check-in */}
@@ -136,7 +139,7 @@ const Dashboard = () => {
             className="h-20 rounded-2xl bg-gradient-to-br from-lavender-mist/80 to-cosmic-lilac/70 text-graphite shadow-lg hover:scale-105 transition-all duration-300 flex flex-col items-center justify-center border border-white/30"
           >
             <BookOpen className="w-6 h-6 mb-1 text-graphite drop-shadow-sm" />
-            <span className="text-sm font-semibold drop-shadow-sm">Reflection Journal</span>
+            <span className="text-sm font-semibold drop-shadow-sm text-graphite">Reflection Journal</span>
           </Button>
           
           <Button 
@@ -144,7 +147,7 @@ const Dashboard = () => {
             className="h-20 rounded-2xl bg-gradient-to-br from-sunshine-peach/80 to-bubblegum-pink/70 text-graphite shadow-lg hover:scale-105 transition-all duration-300 flex flex-col items-center justify-center border border-white/30"
           >
             <Heart className="w-6 h-6 mb-1 text-graphite drop-shadow-sm" />
-            <span className="text-sm font-semibold drop-shadow-sm">Gratitude Garden</span>
+            <span className="text-sm font-semibold drop-shadow-sm text-graphite">Gratitude Garden</span>
           </Button>
           
           <Button 
@@ -152,7 +155,7 @@ const Dashboard = () => {
             className="h-20 rounded-2xl bg-gradient-to-br from-electric-mint/80 to-sky-glow/70 text-graphite shadow-lg hover:scale-105 transition-all duration-300 flex flex-col items-center justify-center border border-white/30"
           >
             <Palette className="w-6 h-6 mb-1 text-graphite drop-shadow-sm" />
-            <span className="text-sm font-semibold drop-shadow-sm">Mindful Doodles</span>
+            <span className="text-sm font-semibold drop-shadow-sm text-graphite">Mindful Doodles</span>
           </Button>
           
           <Button 
@@ -160,7 +163,7 @@ const Dashboard = () => {
             className="h-20 rounded-2xl bg-gradient-to-br from-cosmic-lilac/70 to-bubblegum-pink/60 text-graphite shadow-lg hover:scale-105 transition-all duration-300 flex flex-col items-center justify-center border border-white/30"
           >
             <Lock className="w-6 h-6 mb-1 text-graphite drop-shadow-sm" />
-            <span className="text-sm font-semibold drop-shadow-sm">Safe Haven</span>
+            <span className="text-sm font-semibold drop-shadow-sm text-graphite">Safe Haven</span>
           </Button>
         </div>
       </div>
@@ -200,7 +203,11 @@ const Dashboard = () => {
           <p className="text-sm text-graphite/70 mb-3">
             Need immediate support? We're here for you.
           </p>
-          <Button variant="outline" className="text-bubblegum-pink border-bubblegum-pink hover:bg-bubblegum-pink hover:text-white">
+          <Button 
+            onClick={() => navigate("/crisis-resources")}
+            variant="outline" 
+            className="text-bubblegum-pink border-bubblegum-pink hover:bg-bubblegum-pink hover:text-white transition-all duration-300 hover:scale-105 active:scale-95"
+          >
             Crisis Resources 🆘
           </Button>
         </CardContent>

@@ -14,6 +14,8 @@ import GratitudeTracker from "./pages/GratitudeTracker";
 import DoodleSpace from "./pages/DoodleSpace";
 import PrivateNotes from "./pages/PrivateNotes";
 import Challenges from "./pages/Challenges";
+import CrisisResources from "./pages/CrisisResources";
+import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -43,6 +45,8 @@ const App = () => (
           <Route path="/doodle-space" element={<DoodleSpace />} />
           <Route path="/private-notes" element={<PrivateNotes />} />
           <Route path="/challenges" element={<Challenges />} />
+          <Route path="/crisis-resources" element={<CrisisResources />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
