@@ -83,7 +83,7 @@ const Dashboard = () => {
                 className={`flex-1 aspect-square bg-gradient-to-br ${mood.color} rounded-2xl flex flex-col items-center justify-center transition-all duration-300 hover:scale-105 shadow-lg`}
               >
                 <span className="text-2xl mb-1">{mood.emoji}</span>
-                <span className="text-xs font-medium text-white">{mood.label}</span>
+                <span className="text-xs font-medium text-white drop-shadow-sm">{mood.label}</span>
               </button>
             ))}
           </div>
@@ -123,7 +123,7 @@ const Dashboard = () => {
         ))}
       </div>
 
-      {/* New Cozy Features */}
+      {/* New Cozy Features - Improved readability */}
       <div className="space-y-4 mb-6">
         <h3 className="text-lg font-semibold text-graphite flex items-center gap-2">
           <Sparkles className="w-5 h-5 text-cosmic-lilac" />
@@ -133,34 +133,34 @@ const Dashboard = () => {
         <div className="grid grid-cols-2 gap-4">
           <Button 
             onClick={() => navigate("/reflection-journal")}
-            className="h-20 rounded-2xl bg-gradient-to-br from-lavender-mist to-cosmic-lilac text-white shadow-lg hover:scale-105 transition-all duration-300 flex flex-col items-center justify-center"
+            className="h-20 rounded-2xl bg-gradient-to-br from-lavender-mist/80 to-cosmic-lilac/70 text-graphite shadow-lg hover:scale-105 transition-all duration-300 flex flex-col items-center justify-center border border-white/30"
           >
-            <BookOpen className="w-6 h-6 mb-1" />
-            <span className="text-sm">Reflection Journal</span>
+            <BookOpen className="w-6 h-6 mb-1 text-graphite drop-shadow-sm" />
+            <span className="text-sm font-semibold drop-shadow-sm">Reflection Journal</span>
           </Button>
           
           <Button 
             onClick={() => navigate("/gratitude-tracker")}
-            className="h-20 rounded-2xl bg-gradient-to-br from-sunshine-peach to-bubblegum-pink text-white shadow-lg hover:scale-105 transition-all duration-300 flex flex-col items-center justify-center"
+            className="h-20 rounded-2xl bg-gradient-to-br from-sunshine-peach/80 to-bubblegum-pink/70 text-graphite shadow-lg hover:scale-105 transition-all duration-300 flex flex-col items-center justify-center border border-white/30"
           >
-            <Heart className="w-6 h-6 mb-1" />
-            <span className="text-sm">Gratitude Garden</span>
+            <Heart className="w-6 h-6 mb-1 text-graphite drop-shadow-sm" />
+            <span className="text-sm font-semibold drop-shadow-sm">Gratitude Garden</span>
           </Button>
           
           <Button 
             onClick={() => navigate("/doodle-space")}
-            className="h-20 rounded-2xl bg-gradient-to-br from-electric-mint to-sky-glow text-white shadow-lg hover:scale-105 transition-all duration-300 flex flex-col items-center justify-center"
+            className="h-20 rounded-2xl bg-gradient-to-br from-electric-mint/80 to-sky-glow/70 text-graphite shadow-lg hover:scale-105 transition-all duration-300 flex flex-col items-center justify-center border border-white/30"
           >
-            <Palette className="w-6 h-6 mb-1" />
-            <span className="text-sm">Mindful Doodles</span>
+            <Palette className="w-6 h-6 mb-1 text-graphite drop-shadow-sm" />
+            <span className="text-sm font-semibold drop-shadow-sm">Mindful Doodles</span>
           </Button>
           
           <Button 
             onClick={() => navigate("/private-notes")}
-            className="h-20 rounded-2xl bg-gradient-to-br from-cosmic-lilac to-bubblegum-pink text-white shadow-lg hover:scale-105 transition-all duration-300 flex flex-col items-center justify-center"
+            className="h-20 rounded-2xl bg-gradient-to-br from-cosmic-lilac/70 to-bubblegum-pink/60 text-graphite shadow-lg hover:scale-105 transition-all duration-300 flex flex-col items-center justify-center border border-white/30"
           >
-            <Lock className="w-6 h-6 mb-1" />
-            <span className="text-sm">Safe Haven</span>
+            <Lock className="w-6 h-6 mb-1 text-graphite drop-shadow-sm" />
+            <span className="text-sm font-semibold drop-shadow-sm">Safe Haven</span>
           </Button>
         </div>
       </div>
@@ -184,8 +184,9 @@ const Dashboard = () => {
             Mood Journal
           </Button>
           <Button 
+            onClick={() => navigate("/challenges")}
             variant="outline" 
-            className="h-12 rounded-2xl border-2 border-lavender-mist bg-white/50 hover:bg-lavender-mist/20"
+            className="h-12 rounded-2xl border-2 border-lavender-mist bg-white/50 hover:bg-lavender-mist/20 text-cosmic-lilac hover:text-cosmic-lilac/80 font-semibold transition-all duration-300 hover:scale-105 active:scale-95"
           >
             <Star className="w-5 h-5 mr-2 text-cosmic-lilac" />
             Challenges
