@@ -3,14 +3,38 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, User, Edit, Settings, Trophy, Calendar, Heart, BookOpen, Star, LogOut } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { ArrowLeft, User, Edit, Settings, Trophy, Calendar, Heart, BookOpen, Star, LogOut, Save, X } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useToast } from "@/hooks/use-toast";
 
 const Profile = () => {
   const navigate = useNavigate();
-  const [userName] = useState("Alex");
-  const [userEmail] = useState("alex@mindmate.com");
-  const [joinDate] = useState("January 2024");
+  const { toast } = useToast();
+  
+  // User data state
+  const [userData, setUserData] = useState({
+    name: "Alex",
+    email: "alex@mindmate.com",
+    bio: "Finding peace in small moments and gratitude in everyday life. Mental wellness is a journey, not a destination.",
+    joinDate: "January 2024",
+    profileImage: ""
+  });
+
+  // Edit mode state
+  const [isEditing, setIsEditing] = useState(false);
+  const [editForm, setEditForm] = useState({
+    name: userData.name,
+    bio: userData.bio,
+    profileImage: userData.profileImage
+  });
+
+  // Validation errors
+  const [errors, setErrors] = useState({
+    name: "",
+    bio: ""
+  });
 
   const streakData = [
     { label: "Current Streak", value: "5 days", icon: "🔥", color: "from-sunshine-peach to-bubblegum-pink" },
@@ -31,6 +55,75 @@ const Profile = () => {
     { label: "Weekly Reports", enabled: false },
     { label: "Share Progress", enabled: false }
   ];
+
+  const validateForm = () => {
+    const newErrors = { name: "", bio: "" };
+    
+    if (!editForm.name.trim()) {
+      newErrors.name = "Name is required";
+    } else if (editForm.name.length > 50) {
+      newErrors.name = "Name must be 50 characters or less";
+    }
+    
+    if (editForm.bio.length > 200) {
+      newErrors.bio = "Bio must be 200 characters or less";
+    }
+    
+    setErrors(newErrors);
+    return !newErrors.name && !newErrors.bio;
+  };
+
+  const handleEditClick = () => {
+    setEditForm({
+      name: userData.name,
+      bio: userData.bio,
+      profileImage: userData.profileImage
+    });
+    setErrors({ name: "", bio: "" });
+    setIsEditing(true);
+  };
+
+  const handleCancelEdit = () => {
+    setIsEditing(false);
+    setEditForm({
+      name: userData.name,
+      bio: userData.bio,
+      profileImage: userData.profileImage
+    });
+    setErrors({ name: "", bio: "" });
+  };
+
+  const handleSaveChanges = () => {
+    if (!validateForm()) {
+      return;
+    }
+
+    // Simulate API call - in real app, this would be a backend request
+    setTimeout(() => {
+      setUserData(prev => ({
+        ...prev,
+        name: editForm.name,
+        bio: editForm.bio,
+        profileImage: editForm.profileImage
+      }));
+      
+      setIsEditing(false);
+      
+      toast({
+        title: "Profile Updated",
+        description: "Your profile has been saved successfully!",
+        duration: 3000,
+      });
+    }, 500);
+  };
+
+  const handleInputChange = (field: string, value: string) => {
+    setEditForm(prev => ({ ...prev, [field]: value }));
+    // Clear error when user starts typing
+    if (errors[field as keyof typeof errors]) {
+      setErrors(prev => ({ ...prev, [field]: "" }));
+    }
+  };
 
   return (
     <div className="min-h-screen p-6 pb-20 relative">
@@ -55,27 +148,95 @@ const Profile = () => {
       </div>
 
       {/* Profile Info */}
-      <Card className="card-gradient rounded-3xl mb-6">
+      <Card className={`card-gradient rounded-3xl mb-6 transition-all duration-500 ${isEditing ? 'ring-2 ring-electric-mint/30' : ''}`}>
         <CardContent className="p-6">
           <div className="flex items-center gap-4 mb-6">
             <Avatar className="w-20 h-20 border-4 border-white/50">
-              <AvatarImage src="" />
+              <AvatarImage src={userData.profileImage} />
               <AvatarFallback className="bg-gradient-to-br from-bubblegum-pink to-sky-glow text-white text-2xl font-bold">
-                {userName.charAt(0)}
+                {userData.name.charAt(0)}
               </AvatarFallback>
             </Avatar>
             <div className="flex-1">
-              <h2 className="text-2xl font-bold text-graphite mb-1">{userName}</h2>
-              <p className="text-graphite/70 mb-2">{userEmail}</p>
-              <p className="text-sm text-graphite/60">Member since {joinDate}</p>
+              {!isEditing ? (
+                <>
+                  <h2 className="text-2xl font-bold text-graphite mb-1">{userData.name}</h2>
+                  <p className="text-graphite/70 mb-2">{userData.email}</p>
+                  <p className="text-sm text-graphite/60 mb-3">Member since {userData.joinDate}</p>
+                  {userData.bio && (
+                    <p className="text-sm text-graphite/80 bg-white/30 rounded-2xl p-3">{userData.bio}</p>
+                  )}
+                </>
+              ) : (
+                <div className="space-y-4 animate-fade-in">
+                  <div>
+                    <Input
+                      value={editForm.name}
+                      onChange={(e) => handleInputChange('name', e.target.value)}
+                      placeholder="Your name"
+                      className={`text-lg font-bold bg-white/70 border-2 transition-all duration-300 ${
+                        errors.name ? 'border-red-300 focus:border-red-400' : 'border-white/50 focus:border-electric-mint'
+                      }`}
+                      maxLength={50}
+                    />
+                    {errors.name && (
+                      <p className="text-red-500 text-xs mt-1 animate-fade-in">{errors.name}</p>
+                    )}
+                  </div>
+                  <p className="text-graphite/70 text-sm">{userData.email}</p>
+                  <div>
+                    <Textarea
+                      value={editForm.bio}
+                      onChange={(e) => handleInputChange('bio', e.target.value)}
+                      placeholder="Tell us about your wellness journey..."
+                      className={`bg-white/70 border-2 transition-all duration-300 resize-none ${
+                        errors.bio ? 'border-red-300 focus:border-red-400' : 'border-white/50 focus:border-electric-mint'
+                      }`}
+                      rows={3}
+                      maxLength={200}
+                    />
+                    <div className="flex justify-between items-center mt-1">
+                      {errors.bio ? (
+                        <p className="text-red-500 text-xs animate-fade-in">{errors.bio}</p>
+                      ) : (
+                        <div></div>
+                      )}
+                      <p className="text-xs text-graphite/50">{editForm.bio.length}/200</p>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
-            <Button 
-              variant="ghost" 
-              size="icon"
-              className="hover:bg-white/50 transition-all duration-300 hover:scale-105"
-            >
-              <Edit className="w-5 h-5 text-graphite" />
-            </Button>
+            <div className="flex flex-col gap-2">
+              {!isEditing ? (
+                <Button 
+                  variant="ghost" 
+                  size="icon"
+                  onClick={handleEditClick}
+                  className="hover:bg-white/50 transition-all duration-300 hover:scale-105"
+                >
+                  <Edit className="w-5 h-5 text-graphite" />
+                </Button>
+              ) : (
+                <>
+                  <Button 
+                    size="icon"
+                    onClick={handleSaveChanges}
+                    className="bg-gradient-to-r from-electric-mint to-sky-glow hover:from-electric-mint/80 hover:to-sky-glow/80 transition-all duration-300 hover:scale-105 shadow-lg"
+                  >
+                    <Save className="w-5 h-5 text-white" />
+                  </Button>
+                  <Button 
+                    variant="ghost" 
+                    size="icon"
+                    onClick={handleCancelEdit}
+                    className="hover:bg-red-100 hover:text-red-600 transition-all duration-300 hover:scale-105"
+                  >
+                    <X className="w-5 h-5" />
+                  </Button>
+                </>
+              )}
+            </div>
           </div>
         </CardContent>
       </Card>
