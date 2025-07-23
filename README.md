@@ -216,20 +216,4 @@ Built with ❤️ for mental health awareness and support.
 
 ---
 
-### 🔗 Quick Links for Judges
-
-- **Live Demo**: [Add your deployed URL here]
-- **GitHub Repository**: [Add your repo URL here]
-- **Video Demo**: [Add video link if available]
-
-### 💡 Judging Criteria Alignment
-
-- **Innovation**: AI-powered mental health companion with crisis intervention
-- **Technical Excellence**: Modern React stack with TypeScript and responsive design
-- **User Experience**: Intuitive, calming interface designed for emotional support
-- **Social Impact**: Addresses critical mental health needs with accessible resources
-- **Completeness**: Fully functional MVP with comprehensive feature set
-
----
-
 *MindMate - Because mental health matters, and you're never alone in your journey* 🌟
