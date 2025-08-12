@@ -210,10 +210,6 @@ No environment variables required for basic functionality.
 
 This project is created for hackathon submission and educational purposes.
 
-## 👥 Contributors
-
-Built with ❤️ for mental health awareness and support.
-
 ---
 
 *MindMate - Because mental health matters, and you're never alone in your journey* 🌟
